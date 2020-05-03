@@ -1,5 +1,5 @@
 .games--main {
-  overflow: auto;
+  overflow: auto !important;
   height: 100vh;
 }
 
