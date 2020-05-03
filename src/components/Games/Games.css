@@ -1,0 +1,43 @@
+.games--main {
+  overflow: auto;
+  height: 100vh;
+}
+
+.games--title {
+  padding-top: 90px;
+  font-size: 50px;
+  font-weight: 300;
+  padding-left: 260px;
+  padding-bottom: 50px;
+  color: white;
+}
+
+.games--container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-left: 260px;
+}
+
+@media screen and (max-width: 1200px) {
+  .games--title {
+    padding-left: 0px;
+
+  }
+
+  .games--container {
+    padding-left: 30px;
+  }
+}
+
+@media screen and (max-width: 559px) {
+  .games--title {
+    font-size: 40px;
+  }
+}
+
+@media screen and (max-width: 559px) {
+  .games--container {
+    padding-left: 0px;
+  }
+}
