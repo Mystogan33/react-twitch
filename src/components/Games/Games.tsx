@@ -26,14 +26,19 @@ const Games = () => {
   };
 
   const loadData = async (apiUrl: string) => {
-    const resultData = await (await api.get<ITopGamesResponse>(apiUrl)).data;
-    const { data: topGames, pagination: apiPagination } = resultData;
+    try {
+      const resultData = await api.get<ITopGamesResponse>(apiUrl);
+      const result = resultData.data;
+      const { data: topGames, pagination: apiPagination } = result;
 
-    const mappedTopGames = resizeGames(topGames);
-    setGames([...games, ...mappedTopGames]);
+      const mappedTopGames = resizeGames(topGames);
+      setGames([...games, ...mappedTopGames]);
 
-    if(apiPagination.cursor) {
-      setPagination(apiPagination.cursor);
+      if(apiPagination.cursor) {
+        setPagination(apiPagination.cursor);
+      }
+    } catch (error) {
+      console.log(error.message);
     }
   };
 
@@ -76,7 +81,7 @@ const Games = () => {
         { isFetching
           ? <Spinner />
           : games.map((game, index) => (
-              <GameCard game={game} index={index} />
+              <GameCard key={index} game={game} />
             ))
         }
         { isFetchingMore

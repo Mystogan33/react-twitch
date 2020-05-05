@@ -20,6 +20,18 @@
   color: #efeff1;
   cursor: pointer;
   font-weight: 500;
+  transition: all .2s ease-in-out;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
+
+.link:hover {
+  color: #a970ff;
+  text-decoration: none;
 }
 
 .navlink:hover {
@@ -36,10 +48,15 @@
   margin-top: 5px;
   font-size: 26px;
   color: #a970ff;
+  transition: all .2s ease-in-out;
+}
+
+.logo:hover {
+  transform: translate3d(2px, -5px, 10px);
 }
 
 .logo-link {
-  padding: 0 12px;
+  padding: 0 15px;
 }
 
 .formSubmit {

@@ -3,6 +3,7 @@ import searchIcon from './svg/SearchIcon.svg';
 import menuIcon from './svg/MenuIcon.svg';
 
 import './Header.css';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
@@ -10,10 +11,20 @@ const Header = () => {
       <nav className="headerTop">
         <ul className="menuList">
           <li className="navlink logo-link">
-            <i className="fab fa-twitch fa-2x logo"></i>
+            <Link className="link" to="/">
+              <i className="fab fa-twitch fa-2x logo"></i>
+            </Link>
           </li>
-          <li className="navlink">Top Games</li>
-          <li className="navlink">Top Streams</li>
+          <li className="navlink">
+            <Link className="link" to="/">
+              Top Games
+            </Link>
+          </li>
+          <li className="navlink">
+            <Link className="link" to="/top-streams">
+              Top Streams
+            </Link>
+          </li>
           <li className="navlink">
             <form className="formSubmit">
               <input className="searchInput" placeholder="Rechercher" />

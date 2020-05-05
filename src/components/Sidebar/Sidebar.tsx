@@ -2,16 +2,10 @@ import React, { useState, useEffect } from 'react';
 
 import './Sidebar.css';
 import api from '../../Api';
-import { IStreamsResponse, Stream } from '../../interfaces/GetStreams.interface';
-import { IGamesResponse, IGame } from '../../interfaces/GetGames.interface';
-import { IUsersResponse, IUser } from '../../interfaces/GetUsers.interface';
+import { IStreamsResponse, IRecommandedStream } from '../../interfaces/GetStreams.interface';
+import { IGamesResponse } from '../../interfaces/GetGames.interface';
+import { IUsersResponse } from '../../interfaces/GetUsers.interface';
 import Spinner from '../Spinner/Spinner';
-
-interface IRecommandedStream extends Stream {
-  truePic: IUser["profile_image_url"];
-  gameName: IGame["name"];
-  login: IUser["login"];
-}
 
 const Sidebar = () => {
 
@@ -19,30 +13,31 @@ const Sidebar = () => {
   const [pagination, setPagination] = useState<IStreamsResponse["pagination"]>({ cursor: null });
   const [isFetching, setIsFetching] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsFetching(true);
-      const resultData = await (await api.get<IStreamsResponse>("https://api.twitch.tv/helix/streams")).data;
+  const fetchData = async () => {
+    setIsFetching(true);
+    try {
+      const result = await api.get<IStreamsResponse>("https://api.twitch.tv/helix/streams");
+      const resultData = result.data;
       const { data: streams, pagination } = resultData;
-
+  
       let gameIDs = streams.map(stream => stream.game_id);
       let userIDs = streams.map(stream => stream.user_id);
-
+  
       let baseUrlGames = "https://api.twitch.tv/helix/games?";
       let baseUrlUsers = "https://api.twitch.tv/helix/users?";
-
+  
       let queryParamsGame = "";
       let queryParamsUsers = "";
-
+  
       gameIDs.map(gameId => queryParamsGame += `id=${gameId}&`);
       userIDs.map(userId => queryParamsUsers += `id=${userId}&`);
-
+  
       let urlFinalGames = baseUrlGames + queryParamsGame;
       let urlFinalUsers = baseUrlUsers + queryParamsUsers;
-
+  
       let foundGames = (await api.get<IGamesResponse>(urlFinalGames)).data;
       let foundUsers = (await api.get<IUsersResponse>(urlFinalUsers)).data;
-
+  
       let finalArray = streams.map(stream => {
         
         let newStream: IRecommandedStream = {
@@ -51,7 +46,7 @@ const Sidebar = () => {
           gameName: "",
           login: ""
         };
-
+  
         foundGames.data.forEach(game => {
           foundUsers.data.forEach(user => {
             if(newStream.user_id === user.id && newStream.game_id === game.id) {
@@ -61,15 +56,19 @@ const Sidebar = () => {
             }
           });
         });
-
+  
         setIsFetching(false);
         return newStream;
       });
-
+  
       setTopStreams(finalArray.slice(0,10));
       setPagination(pagination);
-    };
+    } catch (error) {
+      console.log(error); 
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
 

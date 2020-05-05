@@ -1,8 +1,7 @@
-.games--card {
-  height: 480px;
+.stream--card {
+  height: 380px;
   width: 280px;
   margin: 0 30px 30px 0;
-  position: relative;
   transition: all 0.4s;
   border-radius: 10px;
   /*box-shadow: 2px 11px 36px -16px rgba(0, 0, 0, 0.75);*/
@@ -11,34 +10,39 @@
   color: white;
 }
 
-.games--card:hover {
+.stream--card:hover {
   transform: translateY(-5px);
-} 
+}
 
-.games--card__images {
+.stream--card__image {
   width: 100%;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
 
-.games--card__body {
-  height: 144px;
+.stream--card__body {
+  height: 52%;
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
-.games--card__body__title {
+.stream--card__body__title {
+  margin-top: 20px;
+  font-size: 21px;
   white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
   width: 80%;
-  overflow: hidden;
   font-weight: 500;
-  font-size: 18px;
 }
 
-.games--card__body__btn {
+.stream--card__body__viewers {
+  margin-bottom: 20px;
+}
+
+.stream--card__body__btn {
   height: 50px;
   width: 200px;
   display: flex;
@@ -53,13 +57,13 @@
   cursor: pointer;
 }
 
-.games--card__body__btn:hover {
+.stream--card__body__btn:hover {
   text-decoration: none;
   color: #fff;
 }
 
 @media screen and (max-width: 559px) {
-  .games--card {
+  .stream--card {
     margin: 0 0 30px 0;
   }
 }
