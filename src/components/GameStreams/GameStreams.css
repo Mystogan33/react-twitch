@@ -1,0 +1,30 @@
+.gameStreams--title {
+  padding-top: 100px;
+  padding-left: 260px;
+  font-size: 53px;
+  font-weight: 300;
+  padding-bottom: 10px;
+}
+
+.gameStreams--sbTitle {
+  font-size: 25px;
+  font-weight: 300;
+  padding-left: 260px;
+  padding-bottom: 50px;
+}
+
+.coloredText {
+  color: #6441a4;
+}
+
+@media screen and (max-width: 1200px) {
+  .gameStreams--title {
+    padding-left: 0px;
+    font-size: 30px;
+  }
+  .gameStreams--sbTitle {
+    font-size: 17px;
+    padding-left: 0px;
+    padding-bottom: 50px;
+  }
+}

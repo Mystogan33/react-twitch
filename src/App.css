@@ -11,7 +11,10 @@ body {
   overflow: hidden;
 }
 
-div.games--main, div.topStreams--main, div.live--main {
+div.games--main,
+div.topStreams--main,
+div.live--main,
+div.gameStreams--main {
   overflow: auto !important;
 }
 

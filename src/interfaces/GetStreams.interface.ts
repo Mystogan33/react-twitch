@@ -23,7 +23,7 @@ export interface IStreamsResponse {
 };
 
 export interface IRecommandedStream extends IStream {
-  truePic: IUser["profile_image_url"];
-  gameName: IGame["name"];
-  login: IUser["login"];
+  truePic?: IUser["profile_image_url"];
+  gameName?: IGame["name"];
+  login?: IUser["login"];
 }

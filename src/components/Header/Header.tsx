@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import searchIcon from './svg/SearchIcon.svg';
 import menuIcon from './svg/MenuIcon.svg';
 
@@ -6,10 +6,29 @@ import './Header.css';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
+  const [menu, showMenu] = useState(false);
+  const [smallScreen, setSmallScreen] = useState(false);
+
+  const handleMediaQueryChange = (mediaQuery: any) => {
+    if(mediaQuery.matches) setSmallScreen(true);
+    else setSmallScreen(false);
+  };
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 900px)");
+    mediaQuery.addListener(handleMediaQueryChange);
+    handleMediaQueryChange(mediaQuery);
+
+    return () => {
+      mediaQuery.removeListener(handleMediaQueryChange);
+    }
+  });
+
   return (
     <div>
       <nav className="headerTop">
-        <ul className="menuList">
+        {(menu || !smallScreen) && (
+          <ul className="menuList">
           <li className="navlink logo-link">
             <Link className="link" to="/">
               <i className="fab fa-twitch fa-2x logo"></i>
@@ -34,9 +53,10 @@ const Header = () => {
             </form>
           </li>
         </ul>
+        )}
       </nav>
       <div className="menuResBtn">
-        <img src={menuIcon} alt="menuIcon" className="menuIcon" />
+        <img onClick={() => showMenu(!menu)} src={menuIcon} alt="menuIcon" className="menuIcon" />
       </div>
     </div>
   )
