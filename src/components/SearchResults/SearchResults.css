@@ -1,0 +1,35 @@
+.searchResults--container {
+  overflow-x: hidden;
+  padding-top: 50px;
+  padding-left: 239px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.searchResults--container h4 {
+  padding-top: 50px;
+  padding-bottom: 20px;
+  font-size: 24px;
+  color: white;
+}
+
+@media screen and (max-width: 1200px) {
+  .searchResults--container {
+    overflow-x: hidden;
+    padding-top: 0px;
+    padding-left: 0px;
+  }
+
+  .searchResults--container h4 {
+    padding-top: 100px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .searchResults--container h4 {
+    padding-bottom: 20px;
+    font-size: 16px;
+  }
+}
+

@@ -6,12 +6,14 @@ import { IUsersResponse } from '../../interfaces/GetUsers.interface';
 import Spinner from '../Spinner/Spinner';
 import StreamCard from '../../StreamCard/StreamCard';
 
+import './GameStreams.css';
+
 const GameStreams = () => {
   const [streamData, setStreamData] = useState<IRecommandedStream[]>([]);
   const [viewers, setViewers] = useState(0);
   const [isFetching, setIsFetching] = useState(false);
   const location: any = useLocation();
-  let { slug } = useParams();
+  let { gameName } = useParams();
 
   const loadData = async () => {
     if(location && location.state) {
@@ -70,9 +72,9 @@ const GameStreams = () => {
         ? <Spinner />
         : (
           <div className="gameStreams--main">
-              <h1 className="gameStreams--title">{slug}</h1>
+              <h1 className="gameStreams--title">{gameName}</h1>
               <h3 className="gameStreams--sbTitle">
-                <strong className="coloredText">{viewers}</strong> personnes regardent {slug}
+                <strong className="coloredText">{viewers}</strong> personnes regardent {gameName}
               </h3>
               <div className="gameStreams--container">
                 { streamData.map((stream, index) => (

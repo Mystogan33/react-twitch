@@ -1,0 +1,11 @@
+.error--main {}
+
+.error--container {
+  overflow-x: hidden;
+  padding-top: 50px;
+  padding-left: 239px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+}

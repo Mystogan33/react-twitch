@@ -6,6 +6,7 @@ import { IStreamsResponse, IRecommandedStream } from '../../interfaces/GetStream
 import { IGamesResponse } from '../../interfaces/GetGames.interface';
 import { IUsersResponse } from '../../interfaces/GetUsers.interface';
 import Spinner from '../Spinner/Spinner';
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
 
@@ -80,15 +81,17 @@ const Sidebar = () => {
           ? <Spinner />
           : (
             topStreams.map((stream, index) => (
-              <li key={index} className="sidebar--streamer--container">
-                <img src={stream.truePic} alt="streamer logo" className="sidebar--streamer__picture" />
-                <div className="sidebar--streamer__username">{stream.user_name}</div>
-                <div className="sidebar--steamer__viewerCount">
-                  <div className="sidebar--streamer__redDot" />
-                  <div>{stream.viewer_count}</div>
-                </div>
-                <div className="sidebar--streamer__game__name">{stream.gameName}</div>
-              </li>
+              <Link key={index} to={{ pathname: `/stream/${stream.login}`}} className="link">
+                <li className="sidebar--streamer--container">
+                  <img src={stream.truePic} alt="streamer logo" className="sidebar--streamer__picture" />
+                  <div className="sidebar--streamer__username">{stream.user_name}</div>
+                  <div className="sidebar--steamer__viewerCount">
+                    <div className="sidebar--streamer__redDot" />
+                    <div>{stream.viewer_count}</div>
+                  </div>
+                  <div className="sidebar--streamer__game__name">{stream.gameName}</div>
+                </li>
+              </Link>
             ))
           )
         }

@@ -1,0 +1,67 @@
+.resultsCard {
+  height: 580px;
+  width: 350px;
+  margin-bottom: 35px;
+  position: relative;
+  transition: all 0.4s;
+  border-radius: 10px;
+  box-shadow: 2px 11px 36px -16px rgba(0, 0, 0, 0.75);
+  margin-top: 20px;
+  background-color: hsla(0, 0%, 100%, 0.15);
+}
+
+.resultsCard--body {
+  height: 230px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+}
+
+.resultsCard--picture {
+  width: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.resultsCard--body .resultsCard--body__btn {
+  align-self: flex-end;
+  height: 50px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.125;
+  border-radius: 5px;
+  padding: 2px 5px;
+  cursor: pointer;
+}
+
+.resultsCard--body__text {
+  font-weight: 500;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.resultsCard--body__btnResult {
+  background: rgb(255, 191, 0);
+  color: #000;
+  font-size: 17px;
+  border-radius: 10px;
+}
+
+.resultsCard--body__btnResult:hover {
+  color: #000;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 600px) {
+  .resultsCard {
+    height: 580px;
+    width: 300px;
+  }
+}
+

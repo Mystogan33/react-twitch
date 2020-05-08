@@ -12,7 +12,7 @@ import Spinner from '../Spinner/Spinner';
 const Live = () => {
 
   let { slug } = useParams();
-  const [infoStream, setInfoStream] = useState<IStream>();
+  const [infoStream, setInfoStream] = useState<IStream | any>();
   const [infoGame, setInfoGame] = useState<any>([]);
   const [isFetching, setIsFetching] = useState(false);
 
@@ -20,22 +20,26 @@ const Live = () => {
     setIsFetching(true);
     const streamsResponse = await api.get<IStreamsResponse>(`https://api.twitch.tv/helix/streams?user_login=${slug}`);
     const streamsData = streamsResponse.data;
-    console.log(streamsData);
-    streamsData.data[0].thumbnail_url = streamsData.data[0].thumbnail_url.replace('{width}', "25").replace("{height}", "25");
 
-    let gameID = streamsData.data.map(stream => {
-      return stream.game_id;
-    });
+    if(streamsData.data.length === 0) {
+      setInfoStream({ title: "Le Streamer est offline !" });
+    } else {
+      streamsData.data[0].thumbnail_url = streamsData.data[0].thumbnail_url.replace('{width}', "25").replace("{height}", "25");
 
-    const gamesResponse = await api.get<IGamesResponse>(`https://api.twitch.tv/helix/games?id=${gameID}`);
-    const gamesData = gamesResponse.data;
+      let gameID = streamsData.data.map(stream => {
+        return stream.game_id;
+      });
 
-    let gameName = gamesData.data.map(gameName => {
-      return gameName.name;
-    });
+      const gamesResponse = await api.get<IGamesResponse>(`https://api.twitch.tv/helix/games?id=${gameID}`);
+      const gamesData = gamesResponse.data;
 
-    setInfoGame(gameName);
-    setInfoStream(streamsData.data[0]);
+      let gameName = gamesData.data.map(gameName => {
+        return gameName.name;
+      });
+
+      setInfoGame(gameName);
+      setInfoStream(streamsData.data[0]);
+    }
     setIsFetching(false);
   };
 
@@ -59,12 +63,18 @@ const Live = () => {
               />
               <div className="live--stream--info">
                 <div className="live--stream--info__title">{infoStream?.title}</div>
-                <div className="live--stream--info__viewers">{infoStream?.viewer_count} viewers</div>
-                <div className="live--stream--info__streamer">
-                  <img src={infoStream?.thumbnail_url} alt="_streamer_image" className="live--stream--info__streamer__image" />
-                  <span className="live--stream--info__streamer__name">{infoStream?.user_name}, &nbsp; Langue : {infoStream?.language}</span>
-                </div>
-                <div className="live--stream--info__gameName">Joue à {infoGame}</div>
+                { infoStream?.title !== "Le Streamer est offline !"
+                  ? (
+                    <>
+                      <div className="live--stream--info__viewers">{infoStream?.viewer_count} viewers</div>
+                      <div className="live--stream--info__streamer">
+                        <img src={infoStream?.thumbnail_url} alt="_streamer_image" className="live--stream--info__streamer__image" />
+                        <span className="live--stream--info__streamer__name">{infoStream?.user_name}, &nbsp; Langue : {infoStream?.language}</span>
+                      </div>
+                      <div className="live--stream--info__gameName">Joue à {infoGame}</div>
+                    </>
+                  ) : null
+                }
               </div>
             </>
         )
